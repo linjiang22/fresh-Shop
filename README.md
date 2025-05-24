@@ -15,4 +15,4 @@ const router = createRouter();
   2. routes代表里面的路由路径，一级路由下通过children可以有二级路由，
   3. 默认二级路由的设置办法，path配置为空
 3. 之后再main入口内引入router,之后app.use(router);就可以在界面中通过<RouterView />来展示响应路由界面的内容
-4. 
+4. 配置全局使用颜色，在styles中创建var.scss，再在vite.config.js中引入全局使用此文件中的样式，全局样式名一般$开头
