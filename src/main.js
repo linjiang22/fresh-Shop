@@ -1,4 +1,4 @@
-import "@/styles/element/index.scss";
+// import "@/styles/element/index.scss";
 import { createApp } from "vue";
 import App from "./App.vue";
 import ElementPlus from "element-plus";

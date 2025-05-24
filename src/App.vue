@@ -1,6 +1,7 @@
 <template>
   <Test></Test>
   <el-button type="primary">primary</el-button>
+  <el-button type="success">primary</el-button>
 </template>
 
 <script setup lang="js">
