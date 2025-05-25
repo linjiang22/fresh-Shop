@@ -8,7 +8,7 @@
         <li class="home">
           <RouterLink to="/">首页</RouterLink>
         </li>
-        <li v-for="item in categoryList" :key="item.id">
+        <li v-for="item in categoryStore.categoryList" :key="item.id">
           <RouterLink to="/">{{ item.name }}</RouterLink>
         </li>
       </ul>
@@ -21,21 +21,10 @@
   </header>
 </template>
 <script setup>
-import { getCategoryAPI } from "@/apis/layout.js";
-import { onMounted, ref } from "vue";
-//获取数据的函数
-//定义一个响应式数据
-const categoryList = ref([]);
-const getCategory = async () => {
-  // 返回的是一个promise，
-  const res = await getCategoryAPI();
-  console.log(res);
-  categoryList.value = res.result;
-};
-// 选择生命周期去调用函数
-onMounted(() => {
-  getCategory();
-});
+//使用pinia中的数据
+import useCategoryStore from "@/store/category.js";
+const categoryStore = useCategoryStore();
+//将方法传进来之后可以直接用他的数据
 </script>
 
 <style scoped lang="scss">
