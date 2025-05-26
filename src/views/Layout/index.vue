@@ -3,6 +3,8 @@
   <LayoutNav />
   <LayoutHeader />
   <!-- 二级路由出口组件 -->
+  <!-- 添加key 破坏复用机制，强制销毁重建 -->
+  <!-- <router-view :key="$route.fullPath" /> -->
   <router-view />
   <LayoutFooter />
 </template>

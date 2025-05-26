@@ -9,7 +9,10 @@
           <RouterLink to="/">首页</RouterLink>
         </li>
         <li v-for="item in categoryStore.categoryList" :key="item.id">
-          <RouterLink to="/">{{ item.name }}</RouterLink>
+          <RouterLink active-class="active" :to="`/category/${item.id}`">{{
+            item.name
+          }}</RouterLink>
+          <!-- 因为要配置id,所以to前加：动态识别 -->
         </li>
       </ul>
       <div class="search">
