@@ -11,12 +11,16 @@
       </el-breadcrumb>
     </div>
     <div class="sub-container">
-      <el-tabs>
+      <el-tabs v-model="reqDate.sortField" @tab-change="tabChange">
         <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
-      <div class="body">
+      <div
+        class="body"
+        v-infinite-scroll="load"
+        :infinite-scroll-disabled="disabled"
+      >
         <!-- 商品列表-->
         <GoodsItem v-for="goods in goodList" :goods="goods" :key="goods.id" />
       </div>
@@ -34,6 +38,8 @@ const categoryData = ref({})
 const getCategoryData = async () => {
   //获得其中参数
   const res = await getCategoryFilterAPI(route.params.id);
+  console.log('categorydata',res);
+
   categoryData.value = res.result;
 }
 onMounted(() => getCategoryData())
@@ -52,6 +58,29 @@ const getGoodList = async () => {
   goodList.value = res.result.items;
 }
 onMounted(() => getGoodList())
+
+//tab切换回调
+const tabChange = () => {
+  console.log('tab切换了', reqDate.value.sortField);
+  reqDate.value.page = 1;
+  getGoodList();
+}
+
+//无限加载商品功能
+const disabled = ref(false)
+const load = async() => {
+  console.log('无限加载');
+  //加载页数获取下一页数据
+  reqDate.value.page++;
+  //获取数据
+  const res = await getSubCategoryAPI(reqDate.value)
+  //拼接数组,...是展开数组,将后续获得的数据重新交给goodList
+  goodList.value = [...goodList.value, ...res.result.items];
+  //加载完毕停止监听
+  if (res.result.items.length === 0) {
+    disabled.value = true;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
