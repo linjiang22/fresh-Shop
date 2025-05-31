@@ -5,6 +5,7 @@ import Home from "@/views/Home/index.vue";
 import Category from "@/views/Category/index.vue";
 import SubCategory from "@/views/SubCategory/index.vue";
 import Detail from "@/views/detail/index.vue";
+import CartList from "@/views/CartList/index.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   // 配置path和component对应关系
@@ -29,6 +30,10 @@ const router = createRouter({
         {
           path: "detail/:id",
           component: Detail, //detail组件引入
+        },
+        {
+          path: "cartList",
+          component: CartList, //cartList组件引入
         },
       ],
     },

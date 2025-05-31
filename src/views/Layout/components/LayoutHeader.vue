@@ -20,10 +20,12 @@
         <input type="text" placeholder="搜一搜" />
       </div>
       <!-- 头部购物车 -->
+      <HeaderCart />
     </div>
   </header>
 </template>
 <script setup>
+import HeaderCart from "./HeaderCart.vue";
 //使用pinia中的数据
 import useCategoryStore from "@/store/category.js";
 const categoryStore = useCategoryStore();
@@ -84,9 +86,10 @@ const categoryStore = useCategoryStore();
   }
 
   .search {
+    display: flex;
+    align-items: center; /* 垂直居中 */
     width: 170px;
     height: 32px;
-    position: relative;
     border-bottom: 1px solid #e7e7e7;
     line-height: 32px;
 
@@ -96,6 +99,7 @@ const categoryStore = useCategoryStore();
     }
 
     input {
+      flex: 1; /* 输入框占据剩余空间 */
       width: 140px;
       padding-left: 5px;
       color: #666;
