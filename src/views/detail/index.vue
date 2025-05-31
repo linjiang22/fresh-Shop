@@ -25,7 +25,8 @@
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <ImgView />
+              <!-- 全局组件 -->
+              <XtxImgView :imageList="goods.mainPictures" />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -74,7 +75,7 @@
                 </dl>
               </div>
               <!-- sku组件 -->
-
+              <XtxSku :goods="goods" @change="skuChange" />
               <!-- 数据组件 -->
 
               <!-- 按钮组件 -->
@@ -126,8 +127,8 @@
 </template>
 
 <script setup lang="js">
+import  XtxSku from "@/components/XtxSku/index.vue"
 import DetailHot from './components/DetailHot.vue'
-import ImgView from '@/components/imgView/index.vue'
 import { getDetailAPI } from '@/apis/detail';
 import { onMounted } from 'vue';
 import {ref} from 'vue'
@@ -141,6 +142,12 @@ const getGoods = async() => {
 }
 //钩子函数调用
 onMounted(() => getGoods())
+
+//skuchange函数绑定
+//调用其他函数，将sku中选择的参数生成一个对象
+const skuChange =(sku)=>{
+  // console.log(sku);
+}
 </script>
 
 <style scoped lang="scss">
