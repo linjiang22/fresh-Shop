@@ -77,7 +77,7 @@ const top = ref(0);
 const positionX = ref(0);
 const positionY = ref(0);
 watch([elementX, elementY, isOutside], () => {
-  console.log("x,y变化");
+  // console.log("x,y变化");
   //如果鼠标没有移动到盒子里，不执行后面的逻辑
   if (isOutside.value) return;
   console.log("后续逻辑执行了");

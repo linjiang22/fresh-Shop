@@ -77,10 +77,12 @@
               <!-- sku组件 -->
               <XtxSku :goods="goods" @change="skuChange" />
               <!-- 数据组件 -->
-
+              <el-input-number v-model="count" @change="countChange" />
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn"> 加入购物车 </el-button>
+                <el-button size="large" class="btn" @click="addCart">
+                  加入购物车
+                </el-button>
               </div>
             </div>
           </div>
@@ -133,6 +135,9 @@ import { getDetailAPI } from '@/apis/detail';
 import { onMounted } from 'vue';
 import {ref} from 'vue'
 import { useRoute } from 'vue-router';
+import { ElMessage } from "element-plus";
+import { useCartStore } from '@/store/cartStore'
+const cartStore = useCartStore();
 //获取数据
 const goods = ref({});
 const route = useRoute();
@@ -144,9 +149,40 @@ const getGoods = async() => {
 onMounted(() => getGoods())
 
 //skuchange函数绑定
+//注意此处不能用const，它是常量，内容变化需要用let
+let skuObj = {};
 //调用其他函数，将sku中选择的参数生成一个对象
 const skuChange =(sku)=>{
   // console.log(sku);
+  //对它进行赋值
+  skuObj = sku;
+}
+
+//购物车模块的数量
+const count = ref(1);
+const countChange = (count) => {
+  console.log('购物车数量',count);
+  //如果选择了商品规格才能加入购物车，使用sku对象
+}
+//添加购物车
+const addCart = () => {
+  if (skuObj.skuId) {
+    //规格已经选择，触发action函数
+    //传进来参数
+    cartStore.addCart({
+      id: goods.value.id,
+      name: goods.value.name,
+      picture: goods.value.mainPictures[0],
+      price: goods.value.price,
+      count: count.value,
+      skuId: skuObj.skuId,
+      attrsText: skuObj.specsText,
+      selected:true
+    })
+  } else {
+    //规格未选择，提示用户
+    ElMessage.warning('请选择商品规格')
+  }
 }
 </script>
 
